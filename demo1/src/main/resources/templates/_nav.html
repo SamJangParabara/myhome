@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/default}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+<nav id="sidebar" class="sidebar" th:fragment="sidemenu">
+    <div class="sidebar-content js-simplebar">
+        <a class="sidebar-brand" href="/">
+            <img alt="Logo" class="logo-center">
+        </a>
+        <ul class="sidebar-nav">
+
+            <!-- 대시보드 START -->
+            <li class="sidebar-item"
+                th:with="active=${menu eq 'dashboard'}"
+                th:classappend="${active} ? 'active'">
+                <a class="sidebar-link" th:href="@{/dashboard}">
+                    <i class="align-middle" data-feather="activity"></i>
+                    <span class="align-middle">대시보드</span>
+                </a>
+            </li>
+            <!-- 대시보드 END -->
+
+            <!-- 회원 START -->
+            <li class="sidebar-item"
+                sec:authorize="hasAnyRole('ADMIN', 'CREW')"
+                th:with="active=${menu eq 'member'
+                               or menu eq 'boardQna'
+                               or menu eq 'boardReport'
+                               or menu eq 'boardNotice'
+                               or menu eq 'boardFaq'}"
+                th:classappend="${active} ? 'active'">
+
+                <a data-target="#user" data-toggle="collapse" class="sidebar-link collapsed">
+                    <i class="align-middle" data-feather="user"></i>
+                    <span class="align-middle">고객 관리</span>
+                </a>
+
+                <ul id="user" class="sidebar-dropdown list-unstyled collapse"
+                    th:classappend="${active} ? 'show'" data-parent="#sidebar">
+
+                    <li class="sidebar-item" th:classappend="${menu eq 'member'} ? 'active'">
+                        <a class="sidebar-link" th:href="@{/member}">
+                            <span class="align-middle">회원 관리</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item" th:classappend="${menu eq 'boardQna'} ? 'active'">
+                        <a class="sidebar-link" th:href="@{/board-qna}">
+                            <span class="align-middle">1:1 문의 관리</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item" th:classappend="${menu eq 'boardReport'} ? 'active'">
+                        <a class="sidebar-link" th:href="@{/board-report}">
+                            <span class="align-middle">신고 관리</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item" th:classappend="${menu eq 'boardNotice'} ? 'active'">
+                        <a class="sidebar-link" th:href="@{/board-notice}">
+                            <span class="align-middle">공지사항</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item" th:classappend="${menu eq 'boardFaq'} ? 'active'">
+                        <a class="sidebar-link" th:href="@{/board-faq}">
+                            <span class="align-middle">이용 방법</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+</body>
+</html>

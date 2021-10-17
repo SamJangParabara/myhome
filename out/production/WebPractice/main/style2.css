@@ -1,0 +1,10 @@
+body {
+    padding: 50px;
+}
+
+.login.top li label {
+    text-decoration: none;
+    font-size: 15px; color: blue;
+    font-family: dotum;
+    font-weight: bold;
+}
